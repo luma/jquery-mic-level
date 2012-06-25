@@ -1,0 +1,25 @@
+/**
+ * Example styles for the mic Level widget .
+ */
+.mic-volume-widget,
+.mic-volume-widget strong {
+    width: 60px;
+}
+
+.mic-volume-widget {
+    background-color: #888;
+    height: 4px;
+    position: relative;
+}
+    .mic-volume-widget strong {
+        -o-transition: width 0.25s;
+        -webkit-transition: width 0.25s;
+        -moz-transition: width 0.25s;
+        transition: width 0.25s;
+
+        background-color: rgba(0, 0, 255, 0.75);
+        display: block;
+        position: absolute;
+        height: 4px;
+        top: 0;
+    }

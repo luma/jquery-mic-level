@@ -30,6 +30,9 @@ Update the current value:
     $('.mic-level').micLevel('updateValue', 60);
 
 
+*Note:* The widget is pretty easy to style, but there are example styles in example.css if you'd like somewhere to start.
+
+
 ## Options
 
     min: 0
