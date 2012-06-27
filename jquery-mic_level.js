@@ -1,18 +1,21 @@
 // jQuery.micLevel
-//  $(...selector...).micLevel({
-//      min: 10,
-//      max: 100,
-//      value: 50
-//  });
+ // $(...selector...).micLevel({
+ //     min: 10,
+ //     max: 100,
+ //     value: 50
+ // });
 //
 //  $(...selector...).micLevel('updateValue', 60);
+//
+// https://github.com/luma/jquery-mic-level
 //
 (function( $ ){
     var methods = {
         init: function(options) {
             var settings = $.extend( {
                 min: 0,
-                max: 100
+                max: 100,
+                step: 1
             }, options);
 
             return this.each(function() {
@@ -23,9 +26,9 @@
                  $this.addClass('mic-volume-widget').append("<strong></strong>");
 
                  $this.data('micLevel', $.extend(data, {
-                    min: settings.min,
-                    max: settings.max,
-                    indicator: $this.find('strong')
+                    step: settings.step,
+                    interval: 1.0 / (settings.max - settings.min),
+                    $indicator: $this.find('strong')
                  }));
 
                  // Set the current value
@@ -52,12 +55,16 @@
 
     var _updateValue = function($this, value) {
         var data = $this.data('micLevel'),
-            percent = value / (data.max - data.min);
+            steppedValue = value;
 
-         $this.data('micLevel', $.extend(data, {
-            value: value
-         }));
+        if (data.step > 1) {
+            steppedValue = steppedValue + (steppedValue % data.step);
+        }
 
-         data.indicator.css('width', $this.width() * percent);
+        $this.data('micLevel', $.extend(data, {
+            value: steppedValue
+        }));
+
+        data.$indicator[0].style.width = $this.width() * steppedValue * data.interval + 'px';
     };
 })( jQuery );
