@@ -59,7 +59,7 @@
         var data = $this.data('micLevel'),
             steppedValue = value;
 
-        if (data.step > 1) {
+        if (data.step) {
             steppedValue = steppedValue - (steppedValue % data.step);
         }
 
