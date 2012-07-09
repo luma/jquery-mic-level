@@ -27,6 +27,8 @@
 
                  $this.data('micLevel', $.extend(data, {
                     step: settings.step,
+                    min: settings.min,
+                    max: settings.max,
                     interval: 1.0 / (settings.max - settings.min),
                     $indicator: $this.find('strong')
                  }));
@@ -60,6 +62,9 @@
         if (data.step > 1) {
             steppedValue = steppedValue + (steppedValue % data.step);
         }
+
+        if (steppedValue > data.max) steppedValue = data.max;
+        else if (steppedValue < data.min) steppedValue = data.min;
 
         $this.data('micLevel', $.extend(data, {
             value: steppedValue
